@@ -1,0 +1,11 @@
+services:
+  l4d2:
+    container_name: "l4d2_server_1"
+    build: .
+    ports:
+      - 27015:27015/udp
+    volumes:
+      - l4d2-data:/
+
+volumes:
+  l4d2-data:
