@@ -1,12 +1,11 @@
 # Base Image 
-FROM docker.io/library/debian:13
+FROM docker.io/library/ubuntu:25.10
 
 # Enviroment
 ENV USER=steam
 
 # Add Repo
-RUN apt update && apt -y install software-properties-common
-RUN apt apt-add-reposistory non-free
+RUN add-apt-repository multiverse
 
 # Add Support for 32-bit 
 RUN dpkg --add-architecture i386
@@ -34,7 +33,7 @@ RUN chmod +x /usr/bin/server-install.sh
 COPY ./server.cfg /
 
 # Entrypoint to install game and steam
-ENTRYPOINT [ "server-install.sh" ] 
+# ENTRYPOINT [ "server-install.sh" ] 
 
 # Script to start the server
 COPY ./start-server.sh /usr/bin/start-server.sh
@@ -45,4 +44,4 @@ EXPOSE 27015/udp
 EXPOSE 27015/tcp
 
 # Let it RIP
-CMD ["/usr/bin/start-server.sh"]
+# CMD ["/usr/bin/start-server.sh"]
