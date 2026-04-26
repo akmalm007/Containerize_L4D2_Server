@@ -5,7 +5,9 @@ set -e
 # Set the Enviroment, could change to accept environment value
 MAP=c8m4_interior
 MODE=survival
-GAME_LOC=/steamcmd/l4d2/
+GAME_LOC=$HOMEDIR/l4d2
+PORT=$PORT
+CFG=$CFG
 
 # Change directory
 cd $GAME_LOC
