@@ -1,0 +1,15 @@
+[Unit]
+Description=Survival Server
+
+[Container]
+ContainerName=survival-server
+Image=localhost/survival-server:1.0
+Port=27015:27015/udp
+Volume=/home/vera/l4d2-gameserver/podman/l4d2:/home/steam/l4d2
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
+

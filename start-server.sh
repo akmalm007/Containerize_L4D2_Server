@@ -3,15 +3,15 @@
 set -e 
 
 # Set the Enviroment, could change to accept environment value
-MAP=c8m4_interior
-MODE=survival
+MAP=$L4D2_MAP
+MODE=$L4D2_MODE
 GAME_LOC=$HOMEDIR/l4d2
-PORT=$PORT
-CFG=$CFG
+PORT=$L4D2_PORT
+CFG=$L4D2_CFG
 
 # Change directory
 cd $GAME_LOC
 
 # Start the Server
-./srcds_run -console -game left4dead2 -port 27015 +log on +map $MAP +mp_gamemode "$MODE" +exec server +sv_lan 0 -tickrate 100 +sv_setmax 31
+./srcds_run -console -game left4dead2 -port $PORT +log on +map $MAP +mp_gamemode "$MODE" +exec server +sv_lan 0 -tickrate 100 +sv_setmax 31
 
