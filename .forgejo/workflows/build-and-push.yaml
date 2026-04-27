@@ -1,0 +1,42 @@
+name: Personal Website Workflows
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  IMAGE_REGISTRY: forgejo.akmal-maulana.my.id
+  USER_REGISTRY: ${{ secrets.USER_AKMAL }}
+  TOKEN_REGISTRY: ${{ secrets.TOKEN_AKMAL }}
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: https://github.com/actions/checkout@v3
+
+      - name: Login to Docker hub
+        uses: https://github.com/docker/login-action@v2
+        with:
+          username: ${{ secrets.USER_DOCKER}}
+          password: ${{ secrets.TOKEN_DOCKER}}
+
+      - name: Log in to Registry
+        uses: https://github.com/docker/login-action@v2
+        with:
+          username: ${{ env.USER_REGISTRY }}
+          password: ${{ env.TOKEN_REGISTRY }}
+          registry: ${{ env.IMAGE_REGISTRY }}
+
+      - name: Build and Push
+        id: build-image
+        uses: https://github.com/docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE_REGISTRY}}/akmalm007/Containerize-L4D2-Server:1.7
+            akmalm007/l42d-container:1.7
