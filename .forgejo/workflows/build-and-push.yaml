@@ -1,9 +1,9 @@
-name: Personal Website Workflows
+name: CI
 
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 env:
@@ -38,5 +38,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.IMAGE_REGISTRY}}/akmalm007/Containerize-L4D2-Server:1.7
+            ${{ env.IMAGE_REGISTRY}}/akmalm007/containerize-l4l2-server:1.7
             akmalm007/l42d-container:1.7
