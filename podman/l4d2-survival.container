@@ -1,15 +1,22 @@
 [Unit]
-Description=Survival Server
+Description=Coop Server
 
 [Container]
-ContainerName=survival-server
-Image=localhost/survival-server:1.0
-Port=27015:27015/udp
-Volume=/home/vera/l4d2-gameserver/podman/l4d2:/home/steam/l4d2
+ContainerName=coop-server
+Image=localhost/l4d2-survival:1.1
+PublishPort=27016:27016/udp
+Volume=/home/vera/game:/home/steam/l4d2
+Environment=L4D2_MAP=c2m1_highway
+Environment=L4D2_MODE=coop
+Environment=L4D2_PORT=27016
+UserNS=keep-id
+
 
 [Service]
 Restart=always
+TimeoutStartSec=1200
 
 [Install]
 WantedBy=default.target
+
 

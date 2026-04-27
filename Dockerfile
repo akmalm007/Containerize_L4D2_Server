@@ -66,6 +66,8 @@ USER ${USER}
 # Change Workdir
 WORKDIR ${HOMEDIR}
 
+COPY ./lef4dead2 ${HOMEDIR}
+
 # Entrypoint to install game and steam
 ENTRYPOINT [ "server-install.sh" ] 
 
