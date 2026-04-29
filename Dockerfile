@@ -17,7 +17,7 @@ RUN dpkg --add-architecture i386
 # All Dependecies, patchelf is necessary to make it work 
 RUN apt update && apt install -y --no-install-recommends --no-install-suggests \
     patchelf vim curl wget file tar bzip2 gzip unzip locales \
-    bsdmainutils python3 util-linux ca-certificates binutils bc jq netcat-traditional \
+    bsdmainutils util-linux ca-certificates binutils bc jq \
     lib32gcc-s1 lib32stdc++6 zlib1g:i386 \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
@@ -53,12 +53,19 @@ USER root
 COPY ./server-install.sh /usr/bin/server-install.sh
 RUN chmod +x /usr/bin/server-install.sh
 
-# # Script to start the server
+# Script to start server
 COPY ./start-server.sh /usr/bin/start-server.sh
 RUN chmod +x /usr/bin/start-server.sh
 
 # Change User to Steam
-FROM build AS startup
+FROM build AS survival_mode
+
+# Env for Survival Mode
+ENV L4D2_MAP=c8m4_interior
+ENV L4D2_MODE=survival
+ENV L4D2_PORT=27015
+ENV L4D2_TICK=30
+ENV L4D2_SOURCETV=1
 
 # Change to Steam user
 USER ${USER}
@@ -66,14 +73,34 @@ USER ${USER}
 # Change Workdir
 WORKDIR ${HOMEDIR}
 
-COPY ./lef4dead2 ${HOMEDIR}
+# Entrypoint to install game and steam
+ENTRYPOINT [ "server-install.sh" ] 
+
+# Expose the server to port default steam port
+EXPOSE 27015/udp
+
+# Let it RIP
+CMD ["start-server.sh"]
+
+FROM build AS coop_mode
+
+# Env for coop Mode
+ENV L4D2_MAP=c2m1_highway
+ENV L4D2_MODE=coop
+ENV L4D2_PORT=27015
+ENV L4D2_TICK=100
+
+# Change to Steam user
+USER ${USER}
+
+# Change Workdir
+WORKDIR ${HOMEDIR}
 
 # Entrypoint to install game and steam
 ENTRYPOINT [ "server-install.sh" ] 
 
 # Expose the server to port default steam port
 EXPOSE 27015/udp
-EXPOSE 27015/tcp
 
 # Let it RIP
 CMD ["start-server.sh"]

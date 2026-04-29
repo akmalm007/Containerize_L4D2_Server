@@ -37,6 +37,7 @@ jobs:
         with:
           context: .
           push: true
+          target: survival_mode
           tags: |
-            ${{ env.IMAGE_REGISTRY}}/akmalm007/containerize-l4d2-server:1.7
-            akmalm007/l42d-container:1.7
+            ${{ env.IMAGE_REGISTRY}}/akmalm007/containerize-l4d2-server:latest
+            akmalm007/l42d-container:latest

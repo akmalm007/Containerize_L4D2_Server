@@ -3,14 +3,12 @@ Description=Coop Server
 
 [Container]
 ContainerName=coop-server
-Image=localhost/l4d2-survival:1.1
-PublishPort=27016:27016/udp
-Volume=/home/vera/game:/home/steam/l4d2
+Image=docker.io/library/akmalm007/l4d2-container:latest
+PublishPort=27015:27015/udp
+Volume=$HOME/server/l4d2:/home/steam/l4d2
 Environment=L4D2_MAP=c2m1_highway
 Environment=L4D2_MODE=coop
-Environment=L4D2_PORT=27016
-UserNS=keep-id
-
+Environment=L4D2_PORT=27015
 
 [Service]
 Restart=always

@@ -1,0 +1,4 @@
+[Network]
+NetworkName=l4d2_nets
+Gateway=10.90.0.1
+Subnets=10.90.0.0/24
