@@ -1,6 +1,6 @@
 services:
   l4d2-server:
-    image: akmalm007/l4d2-container:latest
+    image: akmalm007/l4d2:latest
     ports:
       - "27015:27015/udp"
     volumes:

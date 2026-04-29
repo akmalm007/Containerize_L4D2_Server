@@ -12,10 +12,17 @@ ENV STEAMDIR="${HOMEDIR}/steamcmd"
 RUN groupadd -g "${GID}" "${GROUP}"
 RUN useradd -u "${PUID}" -g "${GROUP}" -m "${USER}"
 
+# Env for to start the game
+ENV L4D2_MAP=c2m1_highway
+ENV L4D2_MODE=coop
+ENV L4D2_PORT=27015
+ENV L4D2_TICK=30
+ENV L4D2_SOURCETV=0
+
 # Add Support for 32-bit 
 RUN dpkg --add-architecture i386 
 # All Dependecies, patchelf is necessary to make it work 
-RUN apt update && apt install -y --no-install-recommends --no-install-suggests \
+RUN apt update && apt install -y \
     patchelf vim curl wget file tar bzip2 gzip unzip locales \
     bsdmainutils util-linux ca-certificates binutils bc jq \
     lib32gcc-s1 lib32stdc++6 zlib1g:i386 \
@@ -23,7 +30,7 @@ RUN apt update && apt install -y --no-install-recommends --no-install-suggests \
     && dpkg-reconfigure --frontend=noninteractive locales \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends --no-install-suggests \ 
+RUN apt-get update && apt-get install -y \ 
     zlib1g libzadc4 lib32z1 libcurl4-openssl-dev:i386 \ 
     libc6:i386 libstdc++6 libstdc++6:i386 \
     && rm -rf /var/lib/apt/lists/*
@@ -58,37 +65,7 @@ COPY ./start-server.sh /usr/bin/start-server.sh
 RUN chmod +x /usr/bin/start-server.sh
 
 # Change User to Steam
-FROM build AS survival_mode
-
-# Env for Survival Mode
-ENV L4D2_MAP=c8m4_interior
-ENV L4D2_MODE=survival
-ENV L4D2_PORT=27015
-ENV L4D2_TICK=30
-ENV L4D2_SOURCETV=1
-
-# Change to Steam user
-USER ${USER}
-
-# Change Workdir
-WORKDIR ${HOMEDIR}
-
-# Entrypoint to install game and steam
-ENTRYPOINT [ "server-install.sh" ] 
-
-# Expose the server to port default steam port
-EXPOSE 27015/udp
-
-# Let it RIP
-CMD ["start-server.sh"]
-
-FROM build AS coop_mode
-
-# Env for coop Mode
-ENV L4D2_MAP=c2m1_highway
-ENV L4D2_MODE=coop
-ENV L4D2_PORT=27015
-ENV L4D2_TICK=100
+FROM build AS startup
 
 # Change to Steam user
 USER ${USER}

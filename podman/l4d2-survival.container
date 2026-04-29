@@ -1,14 +1,12 @@
 [Unit]
-Description=Coop Server
+Description=L4D2 Server
 
 [Container]
-ContainerName=coop-server
-Image=docker.io/library/akmalm007/l4d2-container:latest
+ContainerName=l4d2-server
+Image=docker.io/library/akmalm007/l4d2:latest
 PublishPort=27015:27015/udp
-Volume=$HOME/server/l4d2:/home/steam/l4d2
-Environment=L4D2_MAP=c2m1_highway
-Environment=L4D2_MODE=coop
-Environment=L4D2_PORT=27015
+Volume=/path/to/directory:/home/steam/l4d2
+HostName=l4d2-server
 
 [Service]
 Restart=always

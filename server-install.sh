@@ -14,8 +14,8 @@ patchelf --clear-execstack $INSTALL_DIR/bin/libsteamvalidateuseridtickets.so
 DepotDownloader -dir $INSTALL_DIR -app 222860 -depot 222861 -manifest 4827977561765481436 -validate
 
 # Sourcemod, Metamod, and Plugins to Installation
-if [ "$L4D2_MODE"="survival" ]; then
-    curl -sqL $PLUGINS | tar xzvf - -C $INSTALL_DIR/l4d2/left4dead2
+if [ ! -d "$INSTALL_DIR/left4dead2/addons/sourcemod"] && [ "$L4D2_MODE" = "survival" ]; then
+    curl -sqL $PLUGINS | tar xzvf - -C $INSTALL_DIR/left4dead2
 fi 
 
 exec "$@"
