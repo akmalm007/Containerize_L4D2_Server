@@ -2,7 +2,7 @@
 set -e
 
 INSTALL_DIR=$HOMEDIR/l4d2
-PLUGINS="https://github.com/akmalm007/L4D2_Survival_Plugins/releases/download/v/survival-plugins.tar.gz"
+PLUGINS="https://forgejo.akmal-maulana.my.id/akmalm007/l4d2-plugins/releases/download/v0.2/survival-plugins.tar.gz"
 
 # Install Linux Dependecies First
 DepotDownloader -dir $INSTALL_DIR -app 222860 -depot 222863 -manifest 2405357637318523777 -validate

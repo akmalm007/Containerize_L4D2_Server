@@ -14,5 +14,5 @@ SOURCETV=$L4D2_SOURCETV
 cd $GAME_LOC
 
 # Start the Server
-./srcds_run -console -game left4dead2 -port $PORT +log on +map $MAP +mp_gamemode "$MODE" +exec server +sv_lan 0 -tickrate $TICK +sv_setmax 31 -insecure +tv_enable $SOURCETV 
+./srcds_run -console -game left4dead2 -port $PORT +log on +map $MAP +mp_gamemode "$MODE" +exec server +sv_lan 0 -tickrate $TICK +sv_setmax 31 +tv_enable $SOURCETV 
 
