@@ -2,7 +2,7 @@
 set -e
 
 INSTALL_DIR=$HOMEDIR/l4d2
-PLUGINS="https://forgejo.akmal-maulana.my.id/akmalm007/l4d2-plugins/releases/download/v0.2/survival-plugins.tar.gz"
+PLUGINS="https://github.com/akmalm007/L4D2_Survival_Plugins/releases/download/version/survival-plugins.tar.gz"
 
 # Install Linux Dependecies First
 DepotDownloader -dir $INSTALL_DIR -app 222860 -depot 222863 -manifest 2405357637318523777 -validate
@@ -14,7 +14,7 @@ patchelf --clear-execstack $INSTALL_DIR/bin/libsteamvalidateuseridtickets.so
 DepotDownloader -dir $INSTALL_DIR -app 222860 -depot 222861 -manifest 4827977561765481436 -validate
 
 # Sourcemod, Metamod, and Plugins to Installation
-if [ ! -d "$INSTALL_DIR/left4dead2/addons/sourcemod" ] && [ "$L4D2_MODE" = "survival" ]; then
+if [ "$L4D2_MODE" = "survival" ]; then
     curl -sqL $PLUGINS | tar xzvf - -C $INSTALL_DIR/left4dead2
 fi 
 

@@ -1,9 +1,12 @@
 services:
   l4d2-server:
     image: akmalm007/l4d2:latest
+    container_name: l4d2-server
+    hostname: l4d2-server
     ports:
       - "27015:27015/udp"
     volumes:
       - "l4d2-data:/home/steam/l4d2"
+
 volumes:
   l4d2-data:

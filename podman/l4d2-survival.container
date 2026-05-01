@@ -3,7 +3,7 @@ Description=L4D2 Server
 
 [Container]
 ContainerName=l4d2-server
-Image=docker.io/library/akmalm007/l4d2:latest
+Image=docker.io/akmalm007/l4d2:latest
 PublishPort=27015:27015/udp
 Volume=/path/to/directory:/home/steam/l4d2
 HostName=l4d2-server
