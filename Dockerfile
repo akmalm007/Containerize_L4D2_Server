@@ -57,12 +57,16 @@ RUN mkdir -p ${STEAMDIR} \
 USER root
 
 # Script to download Game Server
-COPY ./server-install.sh /usr/bin/server-install.sh
-RUN chmod +x /usr/bin/server-install.sh
+COPY install-server.sh /usr/bin/install-server.sh
+RUN chmod +x /usr/bin/install-server.sh
 
 # Script to start server
-COPY ./start-server.sh /usr/bin/start-server.sh
+COPY start-server.sh /usr/bin/start-server.sh
 RUN chmod +x /usr/bin/start-server.sh
+
+# Script so install plugins
+COPY install-plugins-survival.sh /usr/bin/install-plugins-survival.sh
+RUN chmod +x /usr/bin/install-plugins-survival.sh
 
 # Change User to Steam
 FROM build AS startup
@@ -74,7 +78,7 @@ USER ${USER}
 WORKDIR ${HOMEDIR}
 
 # Entrypoint to install game and steam
-ENTRYPOINT [ "server-install.sh" ] 
+ENTRYPOINT [ "install-server.sh" ] 
 
 # Expose the server to port default steam port
 EXPOSE 27015/udp
