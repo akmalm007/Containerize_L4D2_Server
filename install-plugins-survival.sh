@@ -8,6 +8,6 @@ PLUGINS="https://github.com/akmalm007/L4D2_Survival_Plugins/releases/download/ve
 # Sourcemod, Metamod, and Plugins to Installation
 if [ ! -d "$INSTALL_DIR/left4dead2/addons/sourcemod" ] && [ "$L4D2_MODE" = "survival" ]; then
     curl -sqL $PLUGINS | tar xzvfk - -C $INSTALL_DIR/left4dead2
-elif [ ! -f "$INSTALL_DIR/left4dead2/cfg/server.cfg"]; then
+elif [ ! -f "$INSTALL_DIR/left4dead2/cfg/server.cfg" ]; then
     curl -sqL $PLUGINS | tar xzvfk - -C $INSTALL_DIR/left4dead2 cfg/server.cfg
 fi 

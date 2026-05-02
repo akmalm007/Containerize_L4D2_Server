@@ -9,3 +9,6 @@ binding volume change the target directory permission with
 ```bash
 chmod 777 /path/to/directory/games
 ```
+<!-- TODO: Add more examples here -->
+> **TODO** Mulai dokumentasikan bagaiman memakai image ini, untuk preview yang ada di DOcker hub cukup menggunakan docker saja. nanti readme repo juga cukup dari podman dan docker. nah untuk full docmentation nya bakal ada di website kut
+
