@@ -65,8 +65,8 @@ COPY start-server.sh /usr/bin/start-server.sh
 RUN chmod +x /usr/bin/start-server.sh
 
 # Script so install plugins
-COPY install-plugins-survival.sh /usr/bin/install-plugins-survival.sh
-RUN chmod +x /usr/bin/install-plugins-survival.sh
+COPY install-plugins.sh /usr/bin/install-plugins.sh
+RUN chmod +x /usr/bin/install-plugins.sh
 
 # Change User to Steam
 FROM build AS startup
