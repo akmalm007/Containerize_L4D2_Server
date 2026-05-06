@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_REGISTRY: forgejo.akmal-maulana.my.id
+  IMAGE_REGISTRY: git.akmalmaulana.net
   USER_REGISTRY: ${{ secrets.USER_AKMAL }}
   TOKEN_REGISTRY: ${{ secrets.TOKEN_AKMAL }}
 
