@@ -24,7 +24,7 @@ RUN dpkg --add-architecture i386
 # All Dependecies, patchelf is necessary to make it work 
 RUN apt update && apt install -y \
     patchelf vim curl wget file tar bzip2 gzip unzip locales \
-    bsdmainutils util-linux ca-certificates binutils bc jq \
+    util-linux ca-certificates binutils bc jq \
     lib32gcc-s1 lib32stdc++6 zlib1g:i386 \
     && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && dpkg-reconfigure --frontend=noninteractive locales \
@@ -57,16 +57,19 @@ RUN mkdir -p ${STEAMDIR} \
 USER root
 
 # Script to download Game Server
-COPY install-server.sh /usr/bin/install-server.sh
-RUN chmod +x /usr/bin/install-server.sh
+COPY install-server.sh /usr/local/bin/install-server.sh
+RUN chmod +x /usr/local/bin/install-server.sh
+RUN ln -s /usr/local/bin/install-server.sh /usr/bin/install-server  
 
 # Script to start server
-COPY start-server.sh /usr/bin/start-server.sh
-RUN chmod +x /usr/bin/start-server.sh
+COPY start-server.sh /usr/local/bin/start-server.sh
+RUN chmod +x /usr/local/bin/start-server.sh
+RUN ln -s /usr/local/bin/start-server.sh /usr/bin/start-server
 
 # Script so install plugins
-COPY install-plugins.sh /usr/bin/install-plugins.sh
-RUN chmod +x /usr/bin/install-plugins.sh
+COPY install-plugins.sh /usr/local/bin/install-plugins.sh
+RUN chmod +x /usr/local/bin/install-plugins.sh
+RUN ln -s /usr/local/bin/install-plugins.sh /usr/bin/install-plugins
 
 # Change User to Steam
 FROM build AS startup
@@ -78,10 +81,10 @@ USER ${USER}
 WORKDIR ${HOMEDIR}
 
 # Entrypoint to install game and steam
-ENTRYPOINT [ "install-server.sh" ] 
+ENTRYPOINT [ "install-server" ] 
 
 # Expose the server to port default steam port
 EXPOSE 27015/udp
 
 # Let it RIP
-CMD ["start-server.sh"]
+CMD ["start-server"]
